@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  typescript-kata-name:
+    build: .
+    image: typescript-kata-name
+    volumes:
+      - .:/code
