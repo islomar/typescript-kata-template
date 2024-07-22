@@ -22,5 +22,7 @@
 
 
 ## Pending
+- Move to pnpm
 - Fix deprecated dependencies warning
-- Include test coverage
+- Include test coverage in GH Actions
+  - https://about.codecov.io/blog/measuring-typescript-code-coverage-with-jest-and-github-actions/

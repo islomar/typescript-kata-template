@@ -50,9 +50,8 @@ test-clear: ## Clean up tests cache
 
 .PHONY: test-coverage
 test-coverage: ## Generate an HTML test coverage report after running all the tests
-	docker compose run --rm typescript-kata-name poetry run coverage run --branch -m pytest tests
-	docker compose run --rm typescript-kata-name poetry run coverage html
-	@echo "You can find the generated coverage report here: ${PWD}/htmlcov/index.html"
+	docker compose run --rm typescript-kata-name npm run test:coverage
+	@echo "You can find the generated coverage report here: ${PWD}/coverage/index.html"
 
 .PHONY: pre-commit
 pre-commit: check-format check-typing test
