@@ -6,6 +6,9 @@ jobs:
 
   run-linters-and-tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 22 ]
 
     name: 🚀 Lint and test
     timeout-minutes: 5
@@ -14,17 +17,16 @@ jobs:
       - name: 👍 Checkout
         uses: actions/checkout@v2
 
-      - name: 📦 Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          version: 9
+
+      - name: 📦 Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
       - name: 📥 Install dependencies
         run: pnpm install
