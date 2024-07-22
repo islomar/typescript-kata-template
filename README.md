@@ -23,6 +23,9 @@
 
 ## Pending
 - Move to pnpm
+  - https://gist.github.com/mmyoji/ea01398a1cbeded5bf1a701711593759
+  - https://dev.to/andreychernykh/yarn-npm-to-pnpm-migration-guide-2n04
+  - https://pnpm.io/docker
 - Fix deprecated dependencies warning
 - Include test coverage in GH Actions
   - https://about.codecov.io/blog/measuring-typescript-code-coverage-with-jest-and-github-actions/

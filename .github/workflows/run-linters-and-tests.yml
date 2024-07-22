@@ -27,10 +27,10 @@ jobs:
             ${{ runner.os }}-
 
       - name: 📥 Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: 💅 Lint code style
-        run: npm run lint
+        run: pnpm run lint
 
       - name: ✅ Run tests
-        run: npm run test
+        run: pnpm run test

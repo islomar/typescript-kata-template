@@ -9,8 +9,8 @@ help:  ## Show this help.
 check-deps: ## Check if the dependencies we need to run this Makefile are installed
 	@sh ./scripts/check-deps.sh
 
-deps:
-	docker compose run --rm -e CI= typescript-kata-name npm ci
+deps: ## Install all dependencies
+	docker compose run --rm typescript-kata-name pnpm install
 
 .PHONY: local-setup
 local-setup: deps ## Set up the local environment (e.g. install git hooks)
@@ -30,27 +30,27 @@ check-dockerfile: ## Validate the Dockerfile
 
 .PHONY: check-typing
 check-typing:  ## Check typing (implicit when compiling using tsc)
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run build
+	docker compose run --rm --no-deps $(IMAGE_NAME) pnpm run build
 
 .PHONY: check-format
 check-format: ## Check the format (using black)
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run lint
+	docker compose run --rm --no-deps $(IMAGE_NAME) pnpm run lint
 
 .PHONY: fix-format
 fix-format:  ## Format code
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run lint:fix
+	docker compose run --rm --no-deps $(IMAGE_NAME) pnpm run lint:fix
 
 .PHONY: test
 test: ## Run all the tests
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run test
+	docker compose run --rm --no-deps $(IMAGE_NAME) pnpm run test
 
 .PHONY: test-clear
 test-clear: ## Clean up tests cache
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run test:clear
+	docker compose run --rm --no-deps $(IMAGE_NAME) pnpm run test:clear
 
 .PHONY: test-coverage
 test-coverage: ## Generate an HTML test coverage report after running all the tests
-	docker compose run --rm typescript-kata-name npm run test:coverage
+	docker compose run --rm typescript-kata-name pnpm run test:coverage
 	@echo "You can find the generated coverage report here: ${PWD}/coverage/index.html"
 
 .PHONY: pre-commit
