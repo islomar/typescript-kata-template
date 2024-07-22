@@ -37,7 +37,7 @@ check-format: ## Check the format (using black)
 	docker compose run --rm --no-deps $(IMAGE_NAME) npm run lint
 
 .PHONY: fix-format
-fix-format:  ## Format Python code
+fix-format:  ## Format code
 	docker compose run --rm --no-deps $(IMAGE_NAME) npm run lint:fix
 
 .PHONY: test
