@@ -3,10 +3,13 @@ name: Run linters and tests
 on: [push, pull_request]
 
 jobs:
-  unit:
+
+  run-linters-and-tests:
     runs-on: ubuntu-latest
+
     name: 🚀 Lint and test
     timeout-minutes: 5
+    
     steps:
       - name: 👍 Checkout
         uses: actions/checkout@v2

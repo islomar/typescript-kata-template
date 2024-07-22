@@ -1,3 +1,5 @@
+![Run linters and tests workflow](https://github.com/islomar/typescript-kata-template/actions/workflows/run-linters-and-tests.yml/badge.svg)
+
 # Typescript template for a kata
 
 - This repository has been partially inspired by the great https://github.com/CodelyTV/typescript-basic-skeleton from [CodelyTV](https://github.com/CodelyTV) 
@@ -20,6 +22,5 @@
 
 
 ## Pending
-- Run tests with Docker
-    - https://www.emmanuelgautier.com/blog/snippets/typescript-dockerfile
-    - https://github.com/hequ/typescript-dockerfile
+- Fix deprecated dependencies warning
+- Include test coverage

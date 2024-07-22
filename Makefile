@@ -44,7 +44,7 @@ fix-format:  ## Format Python code
 test: ## Run all the tests
 	docker compose run --rm --no-deps $(IMAGE_NAME) npm run test
 
-.PHONY: test
+.PHONY: test-clear
 test-clear: ## Clean up tests cache
 	docker compose run --rm --no-deps $(IMAGE_NAME) npm run test:clear
 
