@@ -20,4 +20,6 @@
 
 
 ## Pending
-- https://www.emmanuelgautier.com/blog/snippets/typescript-dockerfile
+- Run tests with Docker
+    - https://www.emmanuelgautier.com/blog/snippets/typescript-dockerfile
+    - https://github.com/hequ/typescript-dockerfile

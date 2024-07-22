@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-IMAGE_NAME := islomar/typescript-kata-template
+IMAGE_NAME := typescript-kata-name
 
 help:  ## Show this help.
 	@grep -E '^\S+:.*?## .*$$' $(firstword $(MAKEFILE_LIST)) | \
@@ -9,21 +9,28 @@ help:  ## Show this help.
 check-deps: ## Check if the dependencies we need to run this Makefile are installed
 	@sh ./scripts/check-deps.sh
 
+deps:
+	docker compose run --rm -e CI= typescript-kata-name npm ci
+
 .PHONY: local-setup
-local-setup: ## Set up the local environment (e.g. install git hooks)
+local-setup: deps ## Set up the local environment (e.g. install git hooks)
 	scripts/local-setup.sh
+
+.PHONY: clean
+clean: ## General clean-up: delete 'node_modules' folder and Docker image
+	rm -rf node_modules && (docker rmi typescript-kata-name || true) && docker volume prune --force
 
 .PHONY: build
 build: ## Builds the Docker image
-	docker build -t $(IMAGE_NAME) .
+	docker compose build $(IMAGE_NAME) --no-cache
 
 .PHONY: check-dockerfile
 check-dockerfile: ## Validate the Dockerfile
 	docker run --rm -i hadolint/hadolint:latest-alpine < Dockerfile
 
 .PHONY: check-typing
-check-typing:  ## Check types (using mypy)
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run tsc
+check-typing:  ## Check typing (implicit when compiling 	using tsc)
+	docker compose run --rm --no-deps $(IMAGE_NAME) npm run compile
 
 .PHONY: check-format
 check-format: ## Check the format (using black)
@@ -35,7 +42,11 @@ fix-format:  ## Format Python code
 
 .PHONY: test
 test: ## Run all the tests
-	docker compose run --rm --no-deps typescript-kata-name npm run test
+	docker compose run --rm --no-deps $(IMAGE_NAME) npm run test
+
+.PHONY: test
+test-clear: ## Clean up tests cache
+	docker compose run --rm --no-deps $(IMAGE_NAME) npm run test:clear
 
 .PHONY: test-coverage
 test-coverage: ## Generate an HTML test coverage report after running all the tests
@@ -44,7 +55,7 @@ test-coverage: ## Generate an HTML test coverage report after running all the te
 	@echo "You can find the generated coverage report here: ${PWD}/htmlcov/index.html"
 
 .PHONY: pre-commit
-pre-commit: check-format check-typing check-style test
+pre-commit: check-format check-typing test
 
 .PHONY: shell
 shell: ## Get into the Docker container
@@ -55,5 +66,5 @@ rename-project: ## Rename project: 'make rename new-name=<new-name>'
 	sed -i 's/typescript-kata-name/$(new-name)/' docker-compose.yaml
 	sed -i 's/typescript-kata-name/$(new-name)/' Makefile
 	sed -i 's/typescript-kata-name/$(new-name)/' package.json
-	sed -i 's/python-kata-template/$(new-name)/' README.md
-	sed -i 's/python-kata-template/$(new-name)/' Makefile
+	sed -i 's/typescript-kata-template/$(new-name)/' README.md
+	sed -i 's/typescript-kata-template/$(new-name)/' Makefile
