@@ -29,8 +29,8 @@ check-dockerfile: ## Validate the Dockerfile
 	docker run --rm -i hadolint/hadolint:latest-alpine < Dockerfile
 
 .PHONY: check-typing
-check-typing:  ## Check typing (implicit when compiling 	using tsc)
-	docker compose run --rm --no-deps $(IMAGE_NAME) npm run compile
+check-typing:  ## Check typing (implicit when compiling using tsc)
+	docker compose run --rm --no-deps $(IMAGE_NAME) npm run build
 
 .PHONY: check-format
 check-format: ## Check the format (using black)

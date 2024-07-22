@@ -130,3 +130,9 @@ dist
 .pnp.*
 
 .idea/
+
+dist/
+.tmp
+logs/
+data
+test-results.xml
