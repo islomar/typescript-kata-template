@@ -26,6 +26,7 @@
   - https://gist.github.com/mmyoji/ea01398a1cbeded5bf1a701711593759
   - https://dev.to/andreychernykh/yarn-npm-to-pnpm-migration-guide-2n04
   - https://pnpm.io/docker
+  - https://depot.dev/docs/languages/node-pnpm-dockerfile
 - Add test watcher
 - Fix deprecated dependencies warning
 - Include test coverage in GH Actions
